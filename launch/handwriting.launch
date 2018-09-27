@@ -1,0 +1,24 @@
+<launch>
+
+  <!-- Start openpose_ros -->
+  <include file="$(find openpose_ros)/launch/openpose_ros.launch"/>
+
+  <!-- Start apriltag_ros -->
+  <include file="$(find apriltags_ros)/launch/example.launch"/>
+
+  <!-- Start handwriting -->
+  <node pkg="handwriting" type="handwriting_node" name="handwriting_node" output="screen" required="true">
+    <param name="tag_reference_frame"    value="tag"/>
+    <param name="camera_reference_frame" value="kinect2_head_rgb_optical_frame"/>
+    <param name="rgb_camera_info"        value="/kinect2_head/rgb_lowres/camera_info"/>
+
+    <param name="image_depth" value="/kinect2_head/depth_lowres/image"/>
+    <param name="image_rgb"   value="/kinect2_head/rgb_lowres/image"/>
+    <param name="human_list"  value="/openpose_ros/human_list"/>
+    <param name="tag_tf"      value="/tf"/>
+
+    <param name="waypoints_camera_frame" value="/handwriting/waypointsCameraFrame"/>
+    <param name="waypoints_tag_frame"    value="/handwriting/waypointsTagFrame"/>
+  </node>
+
+</launch>
